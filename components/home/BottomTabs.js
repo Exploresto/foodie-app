@@ -7,16 +7,22 @@ export default function BottomTab() {
     <View
       style={{
         flexDirection: "row",
-        margin: 10,
-        marginHorizontal: 20,
+        marginTop: 10,
+        marginHorizontal: 30,
         justifyContent: "space-between",
       }}
     >
-      <Icon icon="home" text="Home" />
+      <Icon icon="home" />
+      <Icon icon="search" />
+      <Icon icon="apps" />
+      <Icon icon="flame" />
+      <Icon icon="accessibility" />
+
+      {/* <Icon icon="home" text="Home" />
       <Icon icon="search" text="Search" />
       <Icon icon="apps" text="Discover" />
       <Icon icon="flame" text="Fav" />
-      <Icon icon="accessibility" text="Account" />
+      <Icon icon="accessibility" text="Account" /> */}
     </View>
   );
 }
@@ -25,7 +31,7 @@ const Icon = (props) => (
     <View>
       <Octicons
         name={props.icon}
-        size={25}
+        size={30}
         style={{
           marginBottom: 3,
           alignSelf: "center",

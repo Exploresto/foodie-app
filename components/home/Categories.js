@@ -3,27 +3,27 @@ import React from "react";
 
 const items = [
   {
-    image: require("../assets/images/jap.jpeg"),
+    image: require("../../assets/images/jap.jpeg"),
     text: "Japanese",
   },
   {
-    image: require("../assets/images/chinese.jpeg"),
+    image: require("../../assets/images/chinese.jpeg"),
     text: "Chinese",
   },
   {
-    image: require("../assets/images/pasta.jpeg"),
+    image: require("../../assets/images/pasta.jpeg"),
     text: "Pasta",
   },
   {
-    image: require("../assets/images/fast-food.jpeg"),
+    image: require("../../assets/images/fast-food.jpeg"),
     text: "Fast Food",
   },
   {
-    image: require("../assets/images/ice-cream.jpeg"),
+    image: require("../../assets/images/ice-cream.jpeg"),
     text: "Ice Cream",
   },
   {
-    image: require("../assets/images/ramen.jpeg"),
+    image: require("../../assets/images/ramen.jpeg"),
     text: "Ramen",
   },
 ];
