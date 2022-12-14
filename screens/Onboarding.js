@@ -9,7 +9,7 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 const { width, height } = Dimensions.get("window");
 const COLORS = { primary: "#282534", white: "#fff" };
@@ -74,7 +74,7 @@ const Slide = ({ item }) => {
     <View style={{ alignItems: "center" }}>
       <Image
         source={item.image}
-        style={{ height: "75%", width, resizeMode: "contain" }}
+        style={{ flex: 1, width, height: "75%", resizeMode: "contain" }}
       />
       <Text style={styles.title}>{item.title}</Text>
       <Text style={styles.description}>{item.description}</Text>
@@ -84,11 +84,34 @@ const Slide = ({ item }) => {
 
 export default function Onboarding({ navigation }) {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const ref = useRef(null);
+
+  const updateCurrentSlideIndex = (e) => {
+    const contentOffsetX = e.nativeEvent.contentOffset.x;
+    const currentIndex = Math.round(contentOffsetX / width);
+    // console.log(currentIndex);
+    setCurrentSlideIndex(currentIndex);
+  };
+
+  const onNextSlide = () => {
+    const nextSlideIndex = currentSlideIndex + 1;
+    if (nextSlideIndex != slides.length) {
+      const offset = nextSlideIndex * width;
+      ref?.current?.scrollToOffset({ offset });
+      setCurrentSlideIndex(nextSlideIndex);
+    }
+  };
+  const skip = () => {
+    const lastSlideIndex = slides.length - 1;
+    const offset = lastSlideIndex * width;
+    ref?.current?.scrollToOffset({ offset });
+    setCurrentSlideIndex(lastSlideIndex);
+  };
   const Footer = () => {
     return (
       <View
         style={{
-          height: height * 0.25,
+          height: height * 0.2,
           justifyContent: "space-between",
           paddingHorizontal: 20,
         }}
@@ -115,50 +138,62 @@ export default function Onboarding({ navigation }) {
           ))}
         </View>
         <View style={{ marginBottom: 20 }}>
-          <View style={{ flexDirection: "row" }}>
-            <TouchableOpacity
-              style={[
-                styles.button,
-                {
-                  backgroundColor: "transparent",
-                  borderWidth: 1,
-                  borderColor: COLORS.white,
-                },
-              ]}
-            >
-              <Text
-                style={{
-                  fontWeight: "bold",
-                  fontSize: 15,
-                  color: COLORS.white,
-                }}
+          {currentSlideIndex == slides.length - 1 ? (
+            <View style={{ height: 50 }}>
+              <TouchableOpacity
+                style={[styles.button]}
+                onPress={() => navigation.replace("Home")}
               >
-                SKIP
-              </Text>
-            </TouchableOpacity>
-            <View style={{ width: 15 }} />
-            <TouchableOpacity style={[styles.button]}>
-              <Text style={{ fontWeight: "bold", fontSize: 15 }}>NEXT</Text>
-            </TouchableOpacity>
-          </View>
+                <Text style={{ fontWeight: "bold", fontSize: 15 }}>
+                  GET STARTED
+                </Text>
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <View style={{ flexDirection: "row" }}>
+              <TouchableOpacity
+                onPress={skip}
+                style={[
+                  styles.button,
+                  {
+                    backgroundColor: "transparent",
+                    borderWidth: 1,
+                    borderColor: COLORS.white,
+                  },
+                ]}
+              >
+                <Text
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: 15,
+                    color: COLORS.white,
+                  }}
+                >
+                  SKIP
+                </Text>
+              </TouchableOpacity>
+              <View style={{ width: 15 }} />
+              <TouchableOpacity style={[styles.button]} onPress={onNextSlide}>
+                <Text style={{ fontWeight: "bold", fontSize: 15 }}>NEXT</Text>
+              </TouchableOpacity>
+            </View>
+          )}
         </View>
       </View>
     );
   };
-  const updateCurrentSlideIndex = (e) => {
-    const contentOffsetX = e.nativeEvent.contetneOffset.x;
-    const currentIndex = Math.round(contentOffsetX / width);
-    setCurrentSlideIndex(currentIndex);
-  };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.primary }}>
       <StatusBar backgroundColor={COLORS.primary} />
       <FlatList
+        ref={ref}
         onMomentumScrollEnd={updateCurrentSlideIndex}
         data={slides}
         contentContainerStyle={{ height: height * 0.65 }}
         horizontal
         showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
         renderItem={({ item }) => <Slide item={item} />}
       />
       <Footer />
