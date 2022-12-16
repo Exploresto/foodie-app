@@ -24,8 +24,7 @@ const styles = StyleSheet.create({
   },
   description: {
     color: COLORS.white,
-    fontSize: 13,
-
+    fontSize: 15,
     marginTop: 10,
     maxWidth: "70%",
     textAlign: "center",
@@ -52,20 +51,20 @@ const slides = [
   {
     id: "1",
     image: require("../assets/images/slide1.png"),
-    title: "Slide 1",
-    description: "Slide 1 description",
+    title: "Who?",
+    description: "We are the foodies",
   },
   {
     id: "2",
     image: require("../assets/images/slide2.png"),
-    title: "Slide 2",
-    description: "Slide 2 description",
+    title: "Mission",
+    description: "Discover what you like",
   },
   {
     id: "3",
     image: require("../assets/images/slide3.png"),
-    title: "Slide 3",
-    description: "Slide 3 description",
+    title: "Dream",
+    description: "Everyone can be a Foodie. You and I, Let’s begin",
   },
 ];
 

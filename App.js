@@ -7,11 +7,13 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Map from "./screens/SearchFromMap";
+import SearchFromMap from "./screens/SearchFromMap";
 
 const Stack = createStackNavigator();
 
 export default function App() {
-  // const [isAppFirstLaunched, setIsAppFirstLaunched] = useState(null);
+  const [isAppFirstLaunched, setIsAppFirstLaunched] = useState(null);
   // useEffect(async () => {
   //   const appData = await AsyncStorage.getItem("isAppFirstLaunched");
   //   if (appData == null) {
@@ -22,16 +24,18 @@ export default function App() {
   //   }
   // }, []);
   return (
-    isAppFirstLaunched != null && (
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          {/* {isAppFirstLaunched && ( */}
-          <Stack.Screen name="Onboarding" component={Onboarding} />
-          {/* )} */}
-          {/* <Stack.Screen name="Onboarding" component={Onboarding} /> */}
-          <Stack.Screen name="Home" component={Home} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    )
+    <View>
+      <SearchFromMap />
+    </View>
+    // isAppFirstLaunched != null && (
+    //   <NavigationContainer>
+    //     <Stack.Navigator screenOptions={{ headerShown: false }}>
+    //       {isAppFirstLaunched && (
+    //         <Stack.Screen name="Onboardingw" component={Onboarding} />
+    //       )}
+    //       <Stack.Screen name="Home" component={Home} />
+    //     </Stack.Navigator>
+    //   </NavigationContainer>
+    // )
   );
 }
